@@ -1,20 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+// import { FormScreen, ShowFormScreen } from "./screens/";
+import FormScreen from "./screens/FormScreen";
+import ShowFormScreen from "./screens/ShowFormScreen";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: { backgroundColor: "#000000" },
+            headerTintColor: "white",
+            contentStyle: { backgroundColor: "#c2c2c2" },
+          }}
+        >
+          <Stack.Screen
+            name="FormScreen"
+            options={{ title: "Fill the form with your data" }}
+            component={FormScreen}
+          />
+          <Stack.Screen
+            name="ShowFormScreen"
+            options={{ title: "Take a look at your data" }}
+            component={ShowFormScreen}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create({});
