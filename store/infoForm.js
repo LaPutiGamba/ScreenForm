@@ -1,20 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const favoritesSlice = createSlice({
+const personInfo = createSlice({
   name: "favorites",
   initialState: {
-    ids: [],
+    person: { name: "", surname: "", age: "", termsAndConditions: false },
   },
   reducers: {
-    addFavorite: (state, action) => {
-      state.ids.push(action.payload.id);
-    },
-    removeFavorite: (state, action) => {
-      state.ids.splice(state.ids.indexOf(action.payload.id), 1);
+    setPerson: (state, action) => {
+      state.person.name = action.payload.name;
+      state.person.surname = action.payload.surname;
+      state.person.age = action.payload.age;
+      state.person.termsAndConditions = action.payload.termsAndConditions;
     },
   },
 });
 
-export const addFavorite = favoritesSlice.actions.addFavorite;
-export const removeFavorite = favoritesSlice.actions.removeFavorite;
-export default favoritesSlice.reducer;
+export const setPerson = personInfo.actions.setPerson;
+export default personInfo.reducer;

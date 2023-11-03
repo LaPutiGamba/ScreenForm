@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 export default function ShowFormScreen({ route, navigation }) {
-  console.log(route.params);
   const name = route.params.name;
   const surname = route.params.surname;
   const age = route.params.age;
