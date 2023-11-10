@@ -3,15 +3,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import FormScreen from "./screens/FormScreen";
 import ShowFormScreen from "./screens/ShowFormScreen";
-import { Provider } from "react-redux";
-import { store } from "./store/store";
+import PersonContextProvider from "./store/context/formContext";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <>
-      <Provider store={store}>
+      <PersonContextProvider>
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
@@ -32,7 +31,7 @@ export default function App() {
             />
           </Stack.Navigator>
         </NavigationContainer>
-      </Provider>
+      </PersonContextProvider>
     </>
   );
 }

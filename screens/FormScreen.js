@@ -1,27 +1,24 @@
 import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-import { useDispatch, useSelector } from "react-redux";
-import { setPerson } from "../store/infoForm";
+import { PersonContext } from "../store/context/formContext";
 
 export default function FormScreen({ navigation }) {
-  const personInfo = useSelector((state) => state.personInfoStore.person);
-  console.log(personInfo);
-  const dispatch = useDispatch();
+  const personInfoCtx = useContext(PersonContext);
+
+  console.log(personInfoCtx);
 
   function sendInformation() {
     if (name === "" || surname === "" || age === "") {
       return;
     }
 
-    dispatch(
-      setPerson({
-        name: name,
-        surname: surname,
-        age: age,
-        termsAndConditions: termsAndConditions,
-      })
-    );
+    personInfoCtx.setPerson({
+      name: name,
+      surname: surname,
+      age: age,
+      termsAndConditions: termsAndConditions,
+    });
 
     navigation.navigate("ShowFormScreen", {
       name: name,
@@ -41,17 +38,25 @@ export default function FormScreen({ navigation }) {
       <View style={styles.container}>
         <TextInput
           style={styles.textInputs}
-          placeholder={personInfo.name ? personInfo.name : "Name"}
+          placeholder={
+            personInfoCtx.persons.name ? personInfoCtx.persons.name : "Name"
+          }
           onChangeText={setName}
         />
         <TextInput
           style={styles.textInputs}
-          placeholder={personInfo.surname ? personInfo.surname : "Surname"}
+          placeholder={
+            personInfoCtx.persons.surname
+              ? personInfoCtx.persons.surname
+              : "Surname"
+          }
           onChangeText={setSurname}
         />
         <TextInput
           style={styles.textInputs}
-          placeholder={personInfo.age ? personInfo.age : "Age"}
+          placeholder={
+            personInfoCtx.persons.age ? personInfoCtx.persons.age : "Age"
+          }
           keyboardType={"number-pad"}
           onChangeText={setAge}
         />
@@ -67,7 +72,11 @@ export default function FormScreen({ navigation }) {
           onPress={(isChecked) => {
             setTermsAndConditions(isChecked);
           }}
-          isChecked={personInfo ? personInfo.termsAndConditions : false}
+          isChecked={
+            personInfoCtx.persons.termsAndConditions
+              ? personInfoCtx.persons.termsAndConditions
+              : false
+          }
         />
         <View style={{ alignItems: "center" }}>
           <Pressable onPress={sendInformation} style={styles.sendButton}>
